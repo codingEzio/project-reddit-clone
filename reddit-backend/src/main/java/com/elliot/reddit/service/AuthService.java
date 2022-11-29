@@ -58,6 +58,14 @@ public class AuthService {
 		));
 	}
 
+	public void verifyAccount(String token) {
+		Optional<VerificationToken> verificationTokenOptional = verificationTokenRepository.findByToken(token);
+
+		verificationTokenOptional.orElseThrow(() -> new SpringRedditException("Invalid token"));
+
+		fetchUserAndEnable(verificationTokenOptional.get());
+	}
+
 	private String encodePassword(String password) {
 		return passwordEncoder.encode(password);
 	}
@@ -71,5 +79,17 @@ public class AuthService {
 		verificationTokenRepository.save(verificationToken);
 
 		return token;
+	}
+
+	@Transactional
+	void fetchUserAndEnable(VerificationToken verificationToken) {
+		String username = verificationToken.getUser().getUsername();
+		User user = userRepository
+				.findByUsername(username)
+				.orElseThrow(() -> new SpringRedditException("User not found with id - " + username));
+
+		user.setEnabled(true);
+
+		userRepository.save(user);
 	}
 }
