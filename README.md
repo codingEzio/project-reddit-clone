@@ -20,3 +20,15 @@
 2. *Repositories*: CRUD functionality based on DB for developers
 
 ## Frontend
+
+### Foundation
+
+1. Installation: `npm install -g @angular/cli@9.1.0`
+2. Initalization
+
+    ```bash
+    ng new reddit-frontend
+
+    cd reddit-frontend
+    ng serve
+    ```
