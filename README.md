@@ -23,7 +23,33 @@
 
 > A simplified illustration of the process and connection between them
 >
-> <img src="./doc-images/001-account-registration.jpg" width="350px" height="auto" alt="Illustration of the process of implementing the account registration" />
+> <img src="./doc-images/001-account-registration.jpg" width="350" height="auto" alt="Illustration of the process of implementing the account registration" />
+
+### Feat :: Account Login
+
+#### Verify and Return Username with JWT Token
+
+- The *KeyStore* security certificate
+
+  - Generate
+
+    ```bash
+    security_cerf_alias="springreddit"
+    security_cerf_passwd="password"
+
+    keytool -genkeypair -storetype JKS \
+        -keyalg RSA -keysize 4096 \
+        -validity 3650 \
+        -alias $security_cerf_alias \
+        -keystore $security_cerf_alias.jks \
+        -storepass $security_cerf_passwd
+    ```
+
+  - Move the generated `.jks` file into your `resources/` folder
+
+- A simplified illustration of the process and connection between them
+
+    <img src="./doc-images/002-account-login-return-jwttoken.jpg" width="350" height="auto" alt="Illustration of the process of implementing the account login" />
 
 ## Frontend
 
