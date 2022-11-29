@@ -1,5 +1,7 @@
 package com.elliot.reddit.service;
 
+import com.elliot.reddit.dto.AuthenticationResponse;
+import com.elliot.reddit.dto.LoginRequest;
 import com.elliot.reddit.dto.RegisterRequest;
 import com.elliot.reddit.exception.SpringRedditException;
 import com.elliot.reddit.model.NotificationEmail;
@@ -7,8 +9,13 @@ import com.elliot.reddit.model.User;
 import com.elliot.reddit.model.VerificationToken;
 import com.elliot.reddit.repository.UserRepository;
 import com.elliot.reddit.repository.VerificationTokenRepository;
+import com.elliot.reddit.security.JwtProvider;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +36,7 @@ public class AuthService {
 	private final VerificationTokenRepository verificationTokenRepository;
 	private final MailContentBuilder mailContentBuilder;
 	private final MailService mailService;
+	private final AuthenticationManager authenticationManager;
 
 	@Transactional
 	public void signup(@RequestBody RegisterRequest registerRequest) {
@@ -66,6 +74,21 @@ public class AuthService {
 		verificationTokenOptional.orElseThrow(() -> new SpringRedditException("Invalid token"));
 
 		fetchUserAndEnable(verificationTokenOptional.get());
+	}
+
+	public AuthenticationResponse login(LoginRequest loginRequest) {
+		Authentication authenticated = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(
+						loginRequest.getUsername(),
+						loginRequest.getPassword()
+				));
+
+		SecurityContextHolder.getContext().setAuthentication(authenticated);
+
+		return new AuthenticationResponse(
+				"",
+				loginRequest.getUsername()
+		);
 	}
 
 	private String encodePassword(String password) {

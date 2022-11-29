@@ -1,5 +1,7 @@
 package com.elliot.reddit.controller;
 
+import com.elliot.reddit.dto.AuthenticationResponse;
+import com.elliot.reddit.dto.LoginRequest;
 import com.elliot.reddit.dto.RegisterRequest;
 import com.elliot.reddit.service.AuthService;
 import lombok.AllArgsConstructor;
@@ -31,5 +33,10 @@ public class AuthController {
 		authService.verifyAccount(token);
 
 		return new ResponseEntity<>("Account activated", OK);
+	}
+
+	@PostMapping("/login")
+	public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
+		return authService.login(loginRequest);
 	}
 }
