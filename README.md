@@ -19,6 +19,12 @@
 1. *Models*: database *table definition* (with a bit of *validation*)
 2. *Repositories*: CRUD functionality based on DB for developers
 
+### Feat :: Account Registration
+
+> A simplified illustration of the process and connection between them
+>
+> <img src="./doc-images/001-account-registration.jpg" width="350px" height="auto" alt="Illustration of the process of implementing the account registration" />
+
 ## Frontend
 
 ### Foundation
