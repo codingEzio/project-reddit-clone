@@ -37,6 +37,7 @@ public class AuthService {
 	private final MailContentBuilder mailContentBuilder;
 	private final MailService mailService;
 	private final AuthenticationManager authenticationManager;
+	private final JwtProvider jwtProvider;
 
 	@Transactional
 	public void signup(@RequestBody RegisterRequest registerRequest) {
@@ -84,9 +85,10 @@ public class AuthService {
 				));
 
 		SecurityContextHolder.getContext().setAuthentication(authenticated);
+		String authenticationToken = jwtProvider.generateToken(authenticated);
 
 		return new AuthenticationResponse(
-				"",
+				authenticationToken,
 				loginRequest.getUsername()
 		);
 	}
