@@ -42,13 +42,15 @@ public class AuthService {
 		user.setEnabled(false);
 
 		userRepository.save(user);
+		log.info("User registered successfully, sending auth email..");
+
 		String token = generateVerificationToken(user);
 
 		String message = mailContentBuilder.build(
 				"Thank you for signing up. Click this to activate: "
-				+ ACTIVATION_EMAIL
-				+ "/"
-				+ token
+						+ ACTIVATION_EMAIL
+						+ "/"
+						+ token
 		);
 
 		mailService.sendMail(new NotificationEmail(
