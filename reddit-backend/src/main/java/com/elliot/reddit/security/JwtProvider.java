@@ -1,6 +1,7 @@
 package com.elliot.reddit.security;
 
 import com.elliot.reddit.exception.SpringRedditException;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -13,12 +14,14 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
 import static com.elliot.reddit.util.Constants.SECURITY_CERT_KEYSTORE_EXT;
 import static com.elliot.reddit.util.Constants.SECURITY_CERT_KEYSTORE_ALIAS;
 import static com.elliot.reddit.util.Constants.SECURITY_CERT_KEYSTORE_PASSWD;
+import static io.jsonwebtoken.Jwts.parser;
 
 @Service
 public class JwtProvider {
@@ -55,6 +58,23 @@ public class JwtProvider {
 				.compact();
 	}
 
+	public boolean validateToken(String jwtToken) {
+		parser()
+				.setSigningKey(getPublicKey())
+				.parseClaimsJws(jwtToken);
+
+		return true;
+	}
+
+	public String getUsernameFromJWT(String jwtToken) {
+		Claims claims = parser()
+				.setSigningKey(getPublicKey())
+				.parseClaimsJws(jwtToken)
+				.getBody();
+
+		return claims.getSubject();
+	}
+
 	private PrivateKey getPrivateKey() {
 		try {
 			return (PrivateKey) keyStore.getKey(
@@ -62,6 +82,18 @@ public class JwtProvider {
 					SECURITY_CERT_KEYSTORE_PASSWD.toCharArray()
 			);
 		} catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException exception) {
+			throw new SpringRedditException(
+					"Exception while retrieving public key from keystore"
+			);
+		}
+	}
+
+	private PublicKey getPublicKey() {
+		try {
+			return keyStore
+					.getCertificate(SECURITY_CERT_KEYSTORE_ALIAS)
+					.getPublicKey();
+		} catch (KeyStoreException exception) {
 			throw new SpringRedditException(
 					"Exception while retrieving public key from keystore"
 			);
