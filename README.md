@@ -51,6 +51,13 @@
 
     <img src="./doc-images/002-account-login-return-jwttoken.jpg" width="350" height="auto" alt="Illustration of the process of implementing the account login" />
 
+#### Use the JWT Token and Actually Verify
+
+> A simplified illustration of the process and connection between them
+>> Also with the actual `Subreddit` controller implemented for testing purposes
+>
+> <img src="./doc-images/003-account-login-via-jwttoken.jpg" width="350" height="auto" alt="Illustration of the process of implementing the account login via the token verification" />
+
 ## Frontend
 
 ### Foundation
