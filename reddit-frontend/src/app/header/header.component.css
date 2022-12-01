@@ -1,0 +1,50 @@
+header {
+  border: 1px solid;
+}
+
+.reddit-icon-svg {
+  height: 50px;
+  padding: 8px 8px 8px 0;
+  width: 50px;
+}
+
+.reddit-text {
+  font-weight: 700;
+  height: 50px;
+  width: 50px;
+}
+
+.logo {
+  text-decoration: none;
+}
+
+.login, .signup {
+  background-color: transparent;
+  color: #0079D3;
+  fill: #0079D3;
+  opacity: 1;
+
+  border: 1px solid #0079D3;
+  box-sizing: border-box;
+  padding: 3px 16px;
+
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 24px;
+  text-transform: uppercase;
+
+  border-radius: 10%;
+}
+
+.signup {
+  background-color: #0079D3;
+  border-color: #0079D3;
+  color: aliceblue;
+}
+
+.signup:hover {
+  opacity: 0.6;
+}
