@@ -58,6 +58,12 @@
 >
 > <img src="./doc-images/003-account-login-via-jwttoken.jpg" width="350" height="auto" alt="Illustration of the process of implementing the account login via the token verification" />
 
+#### Invalidate the JWT Token after a Certain Length of Time
+
+> A simplified illustration of the process and connection between them
+>
+> <img src="./doc-images/004-invalidate-token-after-certain-length-of-time.jpg" width="350" height="auto" alt="Illustration of the process of implementing the logic of token invalidation" />
+
 ## Frontend
 
 ### Foundation
