@@ -47,6 +47,6 @@ public class Post {
 	@Lob
 	private String description;
 
-	private Integer voteCount;
+	private Integer voteCount = 0;
 	private Instant createdDate;
 }
