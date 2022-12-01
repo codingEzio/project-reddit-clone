@@ -2,6 +2,7 @@ package com.elliot.reddit.service;
 
 import com.elliot.reddit.dto.AuthenticationResponse;
 import com.elliot.reddit.dto.LoginRequest;
+import com.elliot.reddit.dto.RefreshTokenRequest;
 import com.elliot.reddit.dto.RegisterRequest;
 import com.elliot.reddit.exception.SpringRedditException;
 import com.elliot.reddit.model.NotificationEmail;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -41,6 +43,7 @@ public class AuthService {
 	private final MailService mailService;
 	private final AuthenticationManager authenticationManager;
 	private final JwtProvider jwtProvider;
+	private final RefreshTokenService refreshTokenService;
 
 	@Transactional
 	public void signup(@RequestBody RegisterRequest registerRequest) {
@@ -88,12 +91,27 @@ public class AuthService {
 				));
 
 		SecurityContextHolder.getContext().setAuthentication(authenticated);
-		String authenticationToken = jwtProvider.generateToken(authenticated);
+		String token = jwtProvider.generateToken(authenticated);
 
-		return new AuthenticationResponse(
-				authenticationToken,
-				loginRequest.getUsername()
-		);
+		return AuthenticationResponse.builder()
+				.authenticationToken(token)
+				.refreshToken(refreshTokenService.generateRefreshToken().getToken())
+				.expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+				.username(loginRequest.getUsername())
+				.build();
+	}
+
+	public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+		refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+
+		String token = jwtProvider.generateTokenWithUsername(refreshTokenRequest.getUsername());
+
+		return AuthenticationResponse.builder()
+				.authenticationToken(token)
+				.refreshToken(refreshTokenRequest.getRefreshToken())
+				.expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+				.username(refreshTokenRequest.getUsername())
+				.build();
 	}
 
 	private String encodePassword(String password) {
