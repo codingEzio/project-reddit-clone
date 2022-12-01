@@ -29,7 +29,7 @@ public class MailService {
 			messageHelper.setTo(notificationEmail.getRecipient());
 			messageHelper.setSubject(notificationEmail.getSubject());
 
-			messageHelper.setText(mailContentBuilder.build(notificationEmail.getBody()));
+			messageHelper.setText(notificationEmail.getBody());
 		};
 
 		try {
@@ -39,7 +39,7 @@ public class MailService {
 		} catch (MailException mailException) {
 			throw new SpringRedditException(
 					"Exception while sending activation email to "
-					+ notificationEmail.getRecipient()
+							+ notificationEmail.getRecipient()
 			);
 		}
 	}
