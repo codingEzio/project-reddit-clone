@@ -12,9 +12,10 @@ import { AuthModule } from './auth/auth.module';
 import { TokenInterceptor } from './token-interceptor';
 import { HomeComponent } from './home/home.component';
 import { PostTitleComponent } from './shared/post-title/post-title.component';
+import { SideBarComponent } from './shared/side-bar/side-bar.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, HomeComponent, PostTitleComponent],
+  declarations: [AppComponent, HeaderComponent, HomeComponent, PostTitleComponent, SideBarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
