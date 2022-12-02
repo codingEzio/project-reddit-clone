@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       if (params.registered !== undefined && params.registered === 'true') {
         this.toastr.success('Signup successful 😊');
+        this.registerSuccessMessage =
+          'Plase check your inbox for account activation email 😇';
       }
     });
   }
