@@ -10,6 +10,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 	@Override
+	public void addCorsMappings(CorsRegistry corsRegistry) {
+		corsRegistry
+				.addMapping("/**")
+				.allowedOriginPatterns("*")
+				.allowedMethods("*")
+				.maxAge(3600L)
+				.allowedHeaders("*")
+				.exposedHeaders("Authorization")
+				.allowCredentials(true);
+
+	}
+
+	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry resourceHandlerRegistry) {
 		resourceHandlerRegistry
 				.addResourceHandler("swagger-ui.html")
