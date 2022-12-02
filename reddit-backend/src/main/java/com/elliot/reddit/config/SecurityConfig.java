@@ -32,6 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// Publicly accessible login/logout path
 				.antMatchers("/api/auth/**")
 				.permitAll()
+				// Publicly accessible subreddit
+				.antMatchers(HttpMethod.GET, "/api/subreddit")
+				.permitAll()
 				// Publicly accessible API documentation Swagger path
 				.antMatchers(
 						"/v2/api-docs",
