@@ -13,9 +13,10 @@ import { TokenInterceptor } from './token-interceptor';
 import { HomeComponent } from './home/home.component';
 import { PostTitleComponent } from './shared/post-title/post-title.component';
 import { SideBarComponent } from './shared/side-bar/side-bar.component';
+import { SubredditSideBarComponent } from './shared/subreddit-side-bar/subreddit-side-bar.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, HomeComponent, PostTitleComponent, SideBarComponent],
+  declarations: [AppComponent, HeaderComponent, HomeComponent, PostTitleComponent, SideBarComponent, SubredditSideBarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
