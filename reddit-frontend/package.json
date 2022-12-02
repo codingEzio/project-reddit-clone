@@ -43,7 +43,8 @@
     "protractor": "~5.4.3",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "ngx-webstorage": "5.0.0"
   },
   "engines": {
     "npm": ">=6.0.0 <7.0.0",
