@@ -1,0 +1,23 @@
+.login-section {
+  margin: 100px;
+}
+
+.login-failed {
+  text-align: center;
+
+  width: 65%;
+  margin: auto;
+  margin-top: 10px;
+  border: 2px solid black;
+
+  background-color: red;
+}
+
+.login-failed-text {
+  text-align: center;
+  font-weight: bold;
+
+  margin-top: 5px;
+
+  color: aliceblue;
+}
