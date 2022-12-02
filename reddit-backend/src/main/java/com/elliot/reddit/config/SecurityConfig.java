@@ -4,6 +4,7 @@ import com.elliot.reddit.security.JwtAuthenticationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -26,9 +27,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity
 				// Disable CSRF
 				.csrf().disable()
-				// Authorize anyone access the authentication route
+				// Authorize anyone access these routes
 				.authorizeRequests()
+				// Publicly accessible login/logout path
 				.antMatchers("/api/auth/**")
+				.permitAll()
+				// Publicly accessible API documentation Swagger path
+				.antMatchers(
+						"/v2/api-docs",
+						"/configuration/ui",
+						"/swagger-resources/**",
+						"/swagger-ui.html",
+						"/webjars/**"
+				)
 				.permitAll()
 				// Require being authenticated for any other routes
 				.anyRequest()
