@@ -11,7 +11,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthModule } from './auth/auth.module';
 import { TokenInterceptor } from './token-interceptor';
 import { HomeComponent } from './home/home.component';
-import { PostTitleComponent } from './shared/post-title/post-title.component';
+import { PostTileComponent } from './shared/post-tile/post-tile.component';
 import { SideBarComponent } from './shared/side-bar/side-bar.component';
 import { SubredditSideBarComponent } from './shared/subreddit-side-bar/subreddit-side-bar.component';
 import { VoteButtonComponent } from './shared/vote-button/vote-button.component';
@@ -25,7 +25,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    PostTitleComponent,
+    PostTileComponent,
     SideBarComponent,
     SubredditSideBarComponent,
     VoteButtonComponent,
