@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { ToastrModule } from 'ngx-toastr';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -39,11 +40,12 @@ import { ViewPostComponent } from './post/view-post/view-post.component';
   ],
   imports: [
     BrowserModule,
-    FontAwesomeModule,
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     AuthModule,
+    FontAwesomeModule,
+    NgbModule,
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
