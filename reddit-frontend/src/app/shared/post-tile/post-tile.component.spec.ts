@@ -8,8 +8,9 @@ describe('PostTileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PostTileComponent],
-    }).compileComponents();
+      declarations: [ PostTileComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
