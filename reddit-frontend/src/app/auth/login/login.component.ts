@@ -52,7 +52,15 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginRequestPayload).subscribe(
       data => {
         this.isError = false;
-        this.router.navigateByUrl('/');
+
+        // Original
+        // this.router.navigateByUrl('/');
+
+        // Modified (refresh after login)
+        this.router.navigateByUrl('/').then(() => {
+          window.location.reload();
+        });
+
         this.toastr.success('Login successfully 😊');
 
         console.log('Login successfully');
