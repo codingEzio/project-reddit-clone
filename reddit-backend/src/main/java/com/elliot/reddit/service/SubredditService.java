@@ -21,11 +21,10 @@ public class SubredditService {
 	private final SubredditRepository subredditRepository;
 	private final SubredditMapper subredditMapper;
 
-	@Transactional(readOnly = true)
+	@Transactional
 	public SubredditDto save(SubredditDto subredditDto) {
 		Subreddit save = subredditRepository.save(
-				subredditMapper.mapDtoToSubreddit(subredditDto)
-		);
+				subredditMapper.mapDtoToSubreddit(subredditDto));
 
 		subredditDto.setId(save.getId());
 
