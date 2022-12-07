@@ -25,6 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
+				.cors().and()
 				// Disable CSRF
 				.csrf().disable()
 				// Authorize anyone access these routes
@@ -35,14 +36,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// Publicly accessible subreddit
 				.antMatchers(HttpMethod.GET, "/api/subreddit")
 				.permitAll()
+				.antMatchers(HttpMethod.GET, "/api/posts/")
+				.permitAll()
+				.antMatchers(HttpMethod.GET, "/api/posts/**")
+				.permitAll()
 				// Publicly accessible API documentation Swagger path
 				.antMatchers(
 						"/v2/api-docs",
 						"/configuration/ui",
 						"/swagger-resources/**",
+						"/configuration/security",
 						"/swagger-ui.html",
-						"/webjars/**"
-				)
+						"/webjars/**")
 				.permitAll()
 				// Require being authenticated for any other routes
 				.anyRequest()
@@ -50,8 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		httpSecurity.addFilterBefore(
 				jwtAuthenticationFilter,
-				UsernamePasswordAuthenticationFilter.class
-		);
+				UsernamePasswordAuthenticationFilter.class);
 	}
 
 	@Override
